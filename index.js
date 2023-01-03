@@ -5,17 +5,8 @@ require('dotenv').config();
 
 //node server
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
-
-//Mensaje de sockets
-io.on('connection', client => {
-    console.log('cliente conectado')
-    client.on('disconnect', () => { console.log('cliente desconectado') });
-    client.on('mensaje', (payload) => {
-        console.log('mensaje!!!', payload.nombre);
-        io.emit('mensaje', { admin: 'nuevo mensaje' })
-    })
-});
+module.exports.io = require('socket.io')(server);
+require('./sockets/socket')
 //path publico
 const publicPath = path.resolve(__dirname, 'public');
 
