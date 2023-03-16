@@ -16,9 +16,13 @@ io.on('connection', client => {
     client.on('mensaje', (payload) => {
         console.log('mensaje!!!', payload.nombre);
         io.emit('mensaje', { admin: 'nuevo mensaje' })
+    });
+    client.on('vote-band', (payload) => {
+        bands.voteBand(payload.id);
+        io.emit('active-bands', bands.getBands())
     })
-    client.on('nuevo-mensaje', (payload) => {
+    // client.on('nuevo-mensaje', (payload) => {
 
-        io.emit('nuevo-mensaje', payload)
-    })
+    //     io.emit('nuevo-mensaje', payload)
+    // })
 });
