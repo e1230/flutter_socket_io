@@ -1,7 +1,17 @@
 const { io } = require('../index');
+const Band = require('../models/band');
+const Bands = require('../models/bands');
+
+const bands = new Bands();
+
+bands.addBand(new Band('Queen'));
+bands.addBand(new Band('metallica'));
+bands.addBand(new Band('SOAD'));
+bands.addBand(new Band('LiSA'));
 //Mensaje de sockets
 io.on('connection', client => {
     console.log('cliente conectado')
+    client.emit('active-bands', bands.getBands())
     client.on('disconnect', () => { console.log('cliente desconectado') });
     client.on('mensaje', (payload) => {
         console.log('mensaje!!!', payload.nombre);
